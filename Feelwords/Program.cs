@@ -7,7 +7,7 @@ namespace Feelwords
 		static void Main(string[] args)
 		{
 			FeelwordsConsoleUI consoleUI = new FeelwordsConsoleUI();
-			consoleUI.DrawingMenu();
+			consoleUI.Main();
 			
 		}
 	}
