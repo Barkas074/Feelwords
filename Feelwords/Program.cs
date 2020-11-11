@@ -8,7 +8,7 @@ namespace Feelwords
 		{
 			FeelwordsConsoleUI consoleUI = new FeelwordsConsoleUI();
 			consoleUI.DrawingMenu();
-			Console.WriteLine("Hello World!");
+			
 		}
 	}
 }
