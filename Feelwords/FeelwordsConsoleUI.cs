@@ -7,11 +7,11 @@ namespace Feelwords
 {
 	class FeelwordsConsoleUI : TheNamesOfTheItems
 	{
+		int choice = 1;
+		bool isChoice = true;
 		public int Main()
 		{
 			Console.CursorVisible = false;
-			int choice = 1;
-			bool isChoice = true;
 			while (true)
 			{
 				if (isChoice)
@@ -19,64 +19,26 @@ namespace Feelwords
 				switch (Console.ReadKey(true).Key)
 				{
 					case ConsoleKey.Tab:
-						if (choice != menuOption.Length - 1)
-							++choice;
-						else
-							choice = 1;
-						isChoice = true;
+						SelectedKey(ConsoleKey.Tab);
 						break;
 					case ConsoleKey.Enter:
-						Console.CursorVisible = true;
 						return choice;
 					case ConsoleKey.Escape:
 						Environment.Exit(0);
 						break;
 					case ConsoleKey.Spacebar:
-						Console.CursorVisible = true;
 						return choice;
 					case ConsoleKey.UpArrow:
-						if (choice != 1)
-						{
-							--choice;
-							isChoice = true;
-						}
-						else
-						{
-							isChoice = false;
-						}
+						SelectedKey(ConsoleKey.UpArrow);
 						break;
 					case ConsoleKey.DownArrow:
-						if (choice != menuOption.Length - 1)
-						{
-							++choice;
-							isChoice = true;
-						}
-						else
-						{
-							isChoice = false;
-						}
+						SelectedKey(ConsoleKey.DownArrow);
 						break;
 					case ConsoleKey.S:
-						if (choice != menuOption.Length - 1)
-						{
-							++choice;
-							isChoice = true;
-						}
-						else
-						{
-							isChoice = false;
-						}
+						SelectedKey(ConsoleKey.DownArrow);
 						break;
 					case ConsoleKey.W:
-						if (choice != 1)
-						{
-							--choice;
-							isChoice = true;
-						}
-						else
-						{
-							isChoice = false;
-						}
+						SelectedKey(ConsoleKey.UpArrow);
 						break;
 					default:
 						isChoice = false;
@@ -85,13 +47,39 @@ namespace Feelwords
 			}
 		}
 
+		private void SelectedKey(ConsoleKey key)
+		{
+			if (key == ConsoleKey.UpArrow && choice != 1)
+			{
+				--choice;
+				isChoice = true;
+			}
+			else if (key == ConsoleKey.DownArrow && choice != menuOption.Length - 2)
+			{
+				++choice;
+				isChoice = true;
+			}
+			else
+			{
+				isChoice = false;
+			}
+			if (key == ConsoleKey.Tab)
+			{
+				if (choice != menuOption.Length - 2)
+					++choice;
+				else
+					choice = 1;
+				isChoice = true;
+			}
+		}
+
 		public void DrawingMenu(int choice)
 		{
-			Console.SetWindowSize(Console.WindowWidth, 42);
+			Console.SetWindowSize(150, 42);
 			Console.Clear();
 			int centerX;
 			int centerY = 1;
-			for (int i = 0; i < menuOption.Length; i++)
+			for (int i = 0; i < menuOption.Length - 1; i++)
 			{
 				for (int j = 0; j < menuOption[i].Length; j++)
 				{
@@ -104,6 +92,41 @@ namespace Feelwords
 					Console.WriteLine(menuOption[i][j]);
 					centerY = Console.CursorTop;
 				}
+			}
+		}
+
+		public void DrawingNewGame()
+		{
+			Dummy(1);
+		}
+
+		public void DrawingResume()
+		{
+			Dummy(2);
+		}
+
+		public void DrawingRating()
+		{
+			Dummy(3);
+		}
+
+		private void Dummy(int choice)
+		{
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Clear();
+			int centerX;
+			int centerY = 1;
+			int dummy = 5;
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < menuOption[dummy].Length; j++)
+				{
+					centerX = (Console.WindowWidth / 2) - (menuOption[dummy][j].Length / 2);
+					Console.SetCursorPosition(centerX, centerY);
+					Console.WriteLine(menuOption[dummy][j]);
+					centerY = Console.CursorTop;
+				}
+				dummy = choice;
 			}
 		}
 	}
