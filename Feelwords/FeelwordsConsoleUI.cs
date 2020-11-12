@@ -97,7 +97,19 @@ namespace Feelwords
 
 		public void DrawingNewGame()
 		{
-			Dummy(1);
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Clear();
+			int centerX;
+			int centerY = 1;
+			for (int i = 0; i < NAMEREQUEST.Length; i++)
+			{
+				centerX = (Console.WindowWidth / 2) - (NAMEREQUEST[i].Length / 2);
+				Console.SetCursorPosition(centerX, centerY);
+				Console.WriteLine(NAMEREQUEST[i]);
+				centerY = Console.CursorTop;
+			}
+			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
+			string name = Console.ReadLine();
 		}
 
 		public void DrawingResume()
