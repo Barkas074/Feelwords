@@ -110,6 +110,7 @@ namespace Feelwords
 			}
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
 			string name = Console.ReadLine();
+
 		}
 
 		public void DrawingResume()
@@ -120,6 +121,41 @@ namespace Feelwords
 		public void DrawingRating()
 		{
 			Dummy(3);
+		}
+
+		private void DrawingField(int fieldWidth, int fieldHeight)
+		{
+			Console.Clear();
+			for (int i = 0; i < fieldHeight; i++)
+			{
+				string topLeftCorner = "╔";
+				string topRightCorner = "╗";
+				string lowerLeftCorner = "╚";
+				string lowerRightCorner = "╝";
+				for (int j = 0; j < fieldWidth; j++)
+				{
+					Console.SetCursorPosition(j * 2, i * 2);
+					if (i != 0)
+					{
+						topLeftCorner = "╠";
+						topRightCorner = "╣";
+					}
+					if (j != 0)
+					{
+						topLeftCorner = "╦";
+						lowerLeftCorner = "╩";
+					}
+					if (i != 0 && j != 0)
+					{
+						topLeftCorner = "╬";
+					}
+					Console.WriteLine(topLeftCorner + "═" + topRightCorner);
+					Console.SetCursorPosition(j * 2, Console.CursorTop);
+					Console.WriteLine("║" + " " + "║");
+					Console.SetCursorPosition(j * 2, Console.CursorTop);
+					Console.Write(lowerLeftCorner + "═" + lowerRightCorner);
+				}
+			}
 		}
 
 		private void Dummy(int choice)
