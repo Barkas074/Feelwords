@@ -1,6 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Text;
 
 namespace Feelwords
 {
@@ -8,8 +6,6 @@ namespace Feelwords
 	{
 		static void Main(string[] args)
 		{
-			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-			string[] dictionary = File.ReadAllLines("input.txt", Encoding.GetEncoding(1251));
 			FeelwordsConsoleUI consoleUI = new FeelwordsConsoleUI();
 			int choice = consoleUI.Main();
 			if (choice == 1)
