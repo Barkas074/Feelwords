@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -45,6 +46,12 @@ namespace Feelwords
 						break;
 				}
 			}
+		}
+
+		private string[] ReadingFile()
+		{
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+			return File.ReadAllLines("input.txt", Encoding.GetEncoding(1251));
 		}
 
 		private void SelectedKey(ConsoleKey key)
