@@ -6,8 +6,8 @@ namespace Feelwords
 {
 	class LevelField
 	{
-		char[,] field;
-		Dictionary<string, List<string>> dictionaryWord;
+		public char[,] field;
+		public Dictionary<string, List<string>> dictionaryWord;
 
 		public LevelField(char[,] field, Dictionary<string, List<string>> dictionaryWord)
 		{
