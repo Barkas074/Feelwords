@@ -59,9 +59,10 @@ namespace Feelwords
 			string[] dictionary = ReadingFile();
 			for (int i = 1; i <= 10; i++)
 			{
-				DrawingField(5, 5);
-				LevelField level = CreatingDictionaryForTheGame(5, 5);
-
+				DrawingField(width, height);
+				LevelField level = CreatingDictionaryForTheGame(width, height);
+				FillField(width, height, level, dictionary);
+				Console.Read();
 			}
 		}
 
@@ -140,7 +141,7 @@ namespace Feelwords
 			}
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
 			string name = Console.ReadLine();
-
+			PrepareField(5, 5); //Временная заглушка на размер поля
 		}
 
 		public void DrawingResume()
@@ -185,6 +186,22 @@ namespace Feelwords
 					Console.SetCursorPosition(j * 2, Console.CursorTop);
 					Console.Write(lowerLeftCorner + "═" + lowerRightCorner);
 				}
+			}
+		}
+
+		private void FillField(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary)
+		{
+			int positionY = 1;
+			for (int i = 0; i < fieldHeight; i++)
+			{
+				int positionX = 1;
+				for (int j = 0; j < fieldWidth; j++)
+				{
+					Console.SetCursorPosition(positionX, positionY);
+					Console.Write(level.field[i, j]);
+					positionX += 2;
+				}
+				positionY += 2;
 			}
 		}
 
