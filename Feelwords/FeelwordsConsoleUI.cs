@@ -62,7 +62,7 @@ namespace Feelwords
 				DrawingField(width, height);
 				LevelField level = CreatingDictionaryForTheGame(width, height);
 				FillField(width, height, level, dictionary);
-				Console.Read();
+				StartTheGame(width, height, level, dictionary);
 			}
 		}
 
@@ -191,17 +191,225 @@ namespace Feelwords
 
 		private void FillField(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary)
 		{
-			int positionY = 1;
+			int cursorPositionY = 1;
 			for (int i = 0; i < fieldHeight; i++)
 			{
-				int positionX = 1;
+				int cursorPositionX = 1;
 				for (int j = 0; j < fieldWidth; j++)
 				{
-					Console.SetCursorPosition(positionX, positionY);
+					Console.SetCursorPosition(cursorPositionX, cursorPositionY);
 					Console.Write(level.field[i, j]);
-					positionX += 2;
+					cursorPositionX += 2;
 				}
-				positionY += 2;
+				cursorPositionY += 2;
+			}
+		}
+
+		private long StartTheGame(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary)
+		{
+			long gamePoints = 0;
+			int cursorPositionX = 1;
+			int cursorPositionY = 1;
+			int cellPositionX = 0;
+			int cellPositionY = 0;
+			bool keyEnter = false;
+			bool keyEsc = true;
+			Stack<string> cursorPosition = new Stack<string>();
+			Stack<string> cellPosition = new Stack<string>();
+			Dictionary<string, List<string>> guessTheWord = new Dictionary<string, List<string>>();
+			while (true)
+			{
+				bool checkLetter = false;
+				foreach (var word in guessTheWord)
+				{
+					int j = 0;
+					for (int i = word.Value.Count - 1; i >= 0; i--)
+					{
+						if (word.Value[j] == cellPositionX + " " + cellPositionY)
+						{
+							Console.BackgroundColor = ConsoleColor.Green;
+							Console.ForegroundColor = ConsoleColor.Gray;
+							checkLetter = true;
+							break;
+						}
+						j++;
+					}
+					if (checkLetter)
+					{
+						break;
+					}
+				}
+				if (!checkLetter)
+				{
+					Console.BackgroundColor = ConsoleColor.Red;
+					Console.ForegroundColor = ConsoleColor.Gray;
+				}
+				Console.SetCursorPosition(cursorPositionY, cursorPositionX);
+				Console.Write(level.field[cellPositionX, cellPositionY]);
+				//if (isChoice)
+				//	DrawingMenu(choice);
+				switch (Console.ReadKey(true).Key)
+				{
+					case ConsoleKey.Enter:
+						if (!keyEnter)
+						{
+							keyEsc = false;
+							keyEnter = true;
+							cursorPosition.Push(cursorPositionY + " " + cursorPositionX);
+							cellPosition.Push(cellPositionX + " " + cellPositionY);
+							break;
+						}
+						else
+						{
+							keyEsc = false;
+							keyEnter = false;
+							if (WordVerification(level, cellPosition, dictionary, ref guessTheWord))
+							{
+								SelectionOfTheCells(ConsoleColor.Green, ConsoleColor.Gray, level, ref cursorPosition, ref cellPosition);
+							}
+							else
+							{
+								SelectionOfTheCells(ConsoleColor.Black, ConsoleColor.Cyan, level, ref cursorPosition, ref cellPosition);
+							}
+							break;
+						}
+					case ConsoleKey.Escape:
+						if (!keyEsc)
+						{
+							SelectedKeyInTheGame(ConsoleKey.Escape, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+							keyEsc = true;
+							break;
+						}
+						else
+						{
+							Console.BackgroundColor = ConsoleColor.Black;
+							Console.ForegroundColor = ConsoleColor.Cyan;
+							return gamePoints;
+						}
+					case ConsoleKey.UpArrow:
+						SelectedKeyInTheGame(ConsoleKey.UpArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.DownArrow:
+						SelectedKeyInTheGame(ConsoleKey.DownArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.LeftArrow:
+						SelectedKeyInTheGame(ConsoleKey.LeftArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.RightArrow:
+						SelectedKeyInTheGame(ConsoleKey.RightArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.W:
+						SelectedKeyInTheGame(ConsoleKey.UpArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.S:
+						SelectedKeyInTheGame(ConsoleKey.DownArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.A:
+						SelectedKeyInTheGame(ConsoleKey.LeftArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+					case ConsoleKey.D:
+						SelectedKeyInTheGame(ConsoleKey.RightArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
+						keyEsc = false;
+						break;
+				}
+			}
+		}
+
+		private void SelectionOfTheCells(ConsoleColor backgroundColor, ConsoleColor foregroundColor, LevelField level, ref Stack<string> cursorPosition, ref Stack<string> cellPosition)
+		{
+			Console.BackgroundColor = backgroundColor;
+			Console.ForegroundColor = foregroundColor;
+			while (cursorPosition.Count != 0)
+			{
+				string temp1 = cursorPosition.Pop();
+				string[] cursor = temp1.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+				string temp2 = cellPosition.Pop();
+				string[] cell = temp2.Split(' ', StringSplitOptions.RemoveEmptyEntries);
+				Console.SetCursorPosition(int.Parse(cursor[0]), int.Parse(cursor[1]));
+				Console.Write(level.field[int.Parse(cell[0]), int.Parse(cell[1])]);
+			}
+		}
+
+		private bool WordVerification(LevelField level, Stack<string> cellPosition, string[] dictionary, ref Dictionary<string, List<string>> guessTheWord)
+		{
+			bool checkWord = false;
+			string[] cell = cellPosition.ToArray();
+			foreach (var word in level.dictionaryWord)
+			{
+				if (word.Value.Count == cell.Length)
+				{
+					int j = 0;
+					for (int i = word.Value.Count - 1; i >= 0; i--)
+					{
+						if (word.Value[j] == cell[i])
+						{
+							checkWord = true;
+						}
+						else
+						{
+							checkWord = false;
+							break;
+						}
+						j++;
+					}
+					if (checkWord)
+					{
+						if (!guessTheWord.ContainsKey(word.Key))
+						{
+							guessTheWord.Add(word.Key, word.Value);
+						}
+					}
+					break;
+				}
+			}
+			return checkWord;
+		}
+
+		private void SelectedKeyInTheGame(ConsoleKey key, int fieldWidth, int fieldHeight, ref int cursorPositionX, ref int cursorPositionY, ref int cellPositionX, ref int cellPositionY, LevelField level, ref bool keyEnter, ref Stack<string> cursorPosition, ref Stack<string> cellPosition, bool checkLetter)
+		{
+			if (!keyEnter && !checkLetter)
+			{
+				Console.BackgroundColor = ConsoleColor.Black;
+				Console.ForegroundColor = ConsoleColor.Cyan;
+				Console.SetCursorPosition(cursorPositionY, cursorPositionX);
+				Console.Write(level.field[cellPositionX, cellPositionY]);
+			}
+			if (key == ConsoleKey.UpArrow && cellPositionX != 0)
+			{
+				cursorPositionX -= 2;
+				cellPositionX -= 1;
+			}
+			else if (key == ConsoleKey.DownArrow && cellPositionX != fieldHeight - 1)
+			{
+				cursorPositionX += 2;
+				cellPositionX += 1;
+			}
+			else if(key == ConsoleKey.LeftArrow && cellPositionY != 0)
+			{
+				cursorPositionY -= 2;
+				cellPositionY -= 1;
+			}
+			else if (key == ConsoleKey.RightArrow && cellPositionY != fieldWidth - 1)
+			{
+				cursorPositionY += 2;
+				cellPositionY += 1;
+			}
+			else if (key == ConsoleKey.Escape)
+			{
+				SelectionOfTheCells(ConsoleColor.Black, ConsoleColor.Cyan, level, ref cursorPosition, ref cellPosition);
+				keyEnter = false;
+			}
+			if (keyEnter)
+			{
+				cursorPosition.Push(cursorPositionY + " " + cursorPositionX);
+				cellPosition.Push(cellPositionX + " " + cellPositionY);
 			}
 		}
 
