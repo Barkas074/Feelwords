@@ -54,6 +54,29 @@ namespace Feelwords
 			return File.ReadAllLines("input.txt", Encoding.GetEncoding(1251));
 		}
 
+		private void PrepareField(int width, int height)
+		{
+			string[] dictionary = ReadingFile();
+			for (int i = 1; i <= 10; i++)
+			{
+				DrawingField(5, 5);
+				LevelField level = CreatingDictionaryForTheGame(5, 5);
+
+			}
+		}
+
+		private LevelField CreatingDictionaryForTheGame(int width, int height)
+		{
+			//Временная заглушка 
+			char[,] field = new char[,] { { 'б', 'е', 'з', 'н', 'е' }, { 'а', 'п', 'о', 'т', 'н' }, { 'с', 'ь', 'а', 'б', 'о' }, { 'н', 'т', 'н', 'и', 'т' }, { 'о', 'с', 'а', 'и', 'с' } };
+			Dictionary<string, List<string>> dictionaryWord = new Dictionary<string, List<string>>();
+			dictionaryWord.Add("безопасность", new List<string>() { "0 0", "0 1", "0 2", "1 2", "1 1", "1 0", "2 0", "3 0", "4 0", "4 1", "3 1", "2 1" });
+			dictionaryWord.Add("истина", new List<string>() { "4 3", "4 4", "3 4", "3 3", "3 2", "4 2" });
+			dictionaryWord.Add("абонент", new List<string>() { "2 2", "2 3", "2 4", "1 4", "0 4", "0 3", "1 3" });
+			LevelField level = new LevelField(field, dictionaryWord);
+			return level;
+		}
+
 		private void SelectedKey(ConsoleKey key)
 		{
 			if (key == ConsoleKey.UpArrow && choice != 1)
