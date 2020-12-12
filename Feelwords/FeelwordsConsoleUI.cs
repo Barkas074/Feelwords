@@ -54,16 +54,22 @@ namespace Feelwords
 			return File.ReadAllLines("input.txt", Encoding.GetEncoding(1251));
 		}
 
-		private void PrepareField(int width, int height)
+		private long PrepareField(int width, int height)
 		{
+			long gamePoints = 0;
 			string[] dictionary = ReadingFile();
 			for (int i = 1; i <= 10; i++)
 			{
 				DrawingField(width, height);
 				LevelField level = CreatingDictionaryForTheGame(width, height);
 				FillField(width, height, level, dictionary);
-				StartTheGame(width, height, level, dictionary);
+				gamePoints += StartTheGame(width, height, level, dictionary, out bool keyEsc);
+				if (keyEsc)
+				{
+					break;
+				}
 			}
+			return gamePoints;
 		}
 
 		private LevelField CreatingDictionaryForTheGame(int width, int height)
@@ -106,7 +112,7 @@ namespace Feelwords
 
 		public void DrawingMenu(int choice)
 		{
-			Console.SetWindowSize(150, 42);
+			Console.SetWindowSize(150, 52);
 			Console.Clear();
 			int centerX;
 			int centerY = 1;
@@ -141,17 +147,52 @@ namespace Feelwords
 			}
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
 			string name = Console.ReadLine();
-			PrepareField(5, 5); //Временная заглушка на размер поля
+			long gamePoints = PrepareField(5, 5); //Временная заглушка на размер поля
+			WorkWithFiles workWithFiles = new WorkWithFiles(name, gamePoints);
 		}
+
+		
 
 		public void DrawingResume()
 		{
 			Dummy(2);
+			while (true)
+			{
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				{
+					break;
+				}
+			}
 		}
 
 		public void DrawingRating()
 		{
-			Dummy(3);
+			Console.ForegroundColor = ConsoleColor.Cyan;
+			Console.Clear();
+			string[] text = File.ReadAllLines("records.txt");
+			foreach (var line in text)
+			{
+				Console.WriteLine(line);
+			}
+			while (true)
+			{
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				{
+					break;
+				}
+			}
+		}
+
+		public void DrawingSettings()
+		{
+			Dummy(4);
+			while (true)
+			{
+				if (Console.ReadKey(true).Key == ConsoleKey.Escape)
+				{
+					break;
+				}
+			}
 		}
 
 		private void DrawingField(int fieldWidth, int fieldHeight)
@@ -205,15 +246,17 @@ namespace Feelwords
 			}
 		}
 
-		private long StartTheGame(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary)
+		private long StartTheGame(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary, out bool keyEsc)
 		{
 			long gamePoints = 0;
+			Console.SetCursorPosition(15, 0);
+			Console.Write("Кол-во очков: " + gamePoints);
 			int cursorPositionX = 1;
 			int cursorPositionY = 1;
 			int cellPositionX = 0;
 			int cellPositionY = 0;
 			bool keyEnter = false;
-			bool keyEsc = true;
+			keyEsc = true;
 			Stack<string> cursorPosition = new Stack<string>();
 			Stack<string> cellPosition = new Stack<string>();
 			Dictionary<string, List<string>> guessTheWord = new Dictionary<string, List<string>>();
@@ -263,9 +306,16 @@ namespace Feelwords
 						{
 							keyEsc = false;
 							keyEnter = false;
-							if (WordVerification(level, cellPosition, dictionary, ref guessTheWord))
+							if (WordVerification(level, cellPosition, dictionary, ref guessTheWord, ref gamePoints))
 							{
 								SelectionOfTheCells(ConsoleColor.Green, ConsoleColor.Gray, level, ref cursorPosition, ref cellPosition);
+								if (guessTheWord.Count == level.dictionaryWord.Count)
+								{
+									Console.BackgroundColor = ConsoleColor.Black;
+									Console.ForegroundColor = ConsoleColor.Cyan;
+									gamePoints += 500;
+									return gamePoints;
+								}
 							}
 							else
 							{
@@ -284,7 +334,7 @@ namespace Feelwords
 						{
 							Console.BackgroundColor = ConsoleColor.Black;
 							Console.ForegroundColor = ConsoleColor.Cyan;
-							return gamePoints;
+							return 0;
 						}
 					case ConsoleKey.UpArrow:
 						SelectedKeyInTheGame(ConsoleKey.UpArrow, fieldWidth, fieldHeight, ref cursorPositionX, ref cursorPositionY, ref cellPositionX, ref cellPositionY, level, ref keyEnter, ref cursorPosition, ref cellPosition, checkLetter);
@@ -337,7 +387,7 @@ namespace Feelwords
 			}
 		}
 
-		private bool WordVerification(LevelField level, Stack<string> cellPosition, string[] dictionary, ref Dictionary<string, List<string>> guessTheWord)
+		private bool WordVerification(LevelField level, Stack<string> cellPosition, string[] dictionary, ref Dictionary<string, List<string>> guessTheWord, ref long gamePoints)
 		{
 			bool checkWord = false;
 			string[] cell = cellPosition.ToArray();
@@ -364,6 +414,11 @@ namespace Feelwords
 						if (!guessTheWord.ContainsKey(word.Key))
 						{
 							guessTheWord.Add(word.Key, word.Value);
+							gamePoints += 100;
+							Console.BackgroundColor = ConsoleColor.Black;
+							Console.ForegroundColor = ConsoleColor.Cyan;
+							Console.SetCursorPosition(15, 0);
+							Console.Write("Кол-во очков: " + gamePoints);
 						}
 					}
 					break;
@@ -419,7 +474,7 @@ namespace Feelwords
 			Console.Clear();
 			int centerX;
 			int centerY = 1;
-			int dummy = 5;
+			int dummy = 6;
 			for (int i = 0; i < 2; i++)
 			{
 				for (int j = 0; j < menuOption[dummy].Length; j++)

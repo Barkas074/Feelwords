@@ -6,6 +6,11 @@ namespace Feelwords
 {
 	class TheNamesOfTheItems
 	{
+		protected static ConsoleColor colorField = ConsoleColor.Black;
+		protected static ConsoleColor colorForeground = ConsoleColor.Cyan;
+		protected static ConsoleColor colorSelectedWord = ConsoleColor.Red;
+		protected static ConsoleColor colorGuessedWord = ConsoleColor.Green;
+
 		protected readonly static string[] NAMEGAME = { "    #     ##   ##    #####  ######    #####   ######     ####   ##   ## ",
 														"  #####   ##  ###   ##  ##  ##   ##  ##   ##  ##   ##   ## ##   ##   ## ",
 														" ## # ##  ##  ###   ##  ##  ##   ##  ##   ##  ##   ##   ## ##   ##   ## ",
@@ -38,6 +43,14 @@ namespace Feelwords
 													   " ##       ##       ###  ##    ##     ###  ##  ##   ##  ##      ",
 													   " ##        #####   ##   ##    ##     ##   ##  ##   ##   ###### ",
 													   "                                                               " };
+		protected readonly static string[] SETTINGS =  { " ##   ##                                                                         ",
+													 	 " ##   ##                                                  ##                     ",
+														 " ##   ##   ####     #####   ######   ######    #####   ##   ##  ##   ##  ##   ## ",
+														 " #######      ##   ##         ##     ##   ##  ##   ##  ##  ###  ##  ##   ##  ### ",
+														 " ##   ##   #####   ##         ##     ######   ##   ##  ## # ##  #####    ## # ## ",
+														 " ##   ##  ##  ##   ##         ##     ##       ##   ##  ###  ##  ##  ##   ###  ## ",
+														 " ##   ##   ######   #####     ##     ##        #####   ##   ##  ##   ##  ##   ## ",
+														 "																				   " };
 		protected readonly static string[] EXIT = { " ######                                      ",
 													" ##   ##                               ####  ",
 													" ##   ##  ##   ##  ##   ##   #####        ## ",
@@ -63,6 +76,6 @@ namespace Feelwords
 														   " ##   ##  ##  ##   ##  ##       ##   ##  ##  ##   ##           ##   ##  ##   ##  ##   ##   ######    ##             ",
 														   " ##   ##   ######  ##   ##      ######    ######   #####        #####    #####   ######        ##    ##        #    ",
 														   "                                                                                           #####                    " };
-		protected readonly string[][] menuOption = { NAMEGAME, NEWGAME, RESUME, RATING, EXIT, DUMMY };
+		protected readonly string[][] menuOption = { NAMEGAME, NEWGAME, RESUME, RATING, SETTINGS, EXIT, DUMMY };
 	}
 }
