@@ -51,7 +51,11 @@ namespace Feelwords
 		private string[] ReadingFile()
 		{
 			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
-			return File.ReadAllLines("input.txt", Encoding.GetEncoding(1251));
+			if (!File.Exists("dictionary.txt"))
+			{
+				File.WriteAllText("dictionary.txt", "абажур\nабордаж\nаборт\nабонент\nавиалиния\nавтобаза\nавтограф\nавтомобилист\nавтор\nбал\nбалет\nбалкон\nбалерина\nбандит\nбаня\nбанкомат\nбарьер\nбасня\nбассейн\nбездна\nбезопасность\nбелка\nберег\nберет\nигрок\nидеал\nигра\nидол\nидея\nизобретатель\nизумруд\nикона\nил\nйод\nион\nиск\nистина\nитог\nум\nяк");
+			}
+			return File.ReadAllLines("dictionary.txt", Encoding.GetEncoding(1251));
 		}
 
 		private long PrepareField(int width, int height)
@@ -169,10 +173,13 @@ namespace Feelwords
 		{
 			Console.ForegroundColor = ConsoleColor.Cyan;
 			Console.Clear();
-			string[] text = File.ReadAllLines("records.txt");
-			foreach (var line in text)
+			if (File.Exists("records.txt"))
 			{
-				Console.WriteLine(line);
+				string[] text = File.ReadAllLines("records.txt");
+				foreach (var line in text)
+				{
+					Console.WriteLine(line);
+				}
 			}
 			while (true)
 			{
