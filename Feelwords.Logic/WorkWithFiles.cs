@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-
-namespace Feelwords
+﻿namespace Feelwords.Logic
 {
-	class WorkWithFiles
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Text;
+
+	public class WorkWithFiles
 	{
 		private void WriteTextToFile(string nameFile, string text)
 		{

@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Feelwords
+﻿namespace Feelwords.Logic
 {
-	class TheNamesOfTheItems
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+
+	public class TheNamesOfTheItems
 	{
 		protected static ConsoleColor colorField = ConsoleColor.Black;
 		protected static ConsoleColor colorForeground = ConsoleColor.Cyan;
 		protected static ConsoleColor colorSelectedWord = ConsoleColor.Red;
 		protected static ConsoleColor colorGuessedWord = ConsoleColor.Green;
 
-		protected readonly static string[] NAMEGAME = { "    #     ##   ##    #####  ######    #####   ######     ####   ##   ## ",
+		private readonly static string[] NAMEGAME = { "    #     ##   ##    #####  ######    #####   ######     ####   ##   ## ",
 														"  #####   ##  ###   ##  ##  ##   ##  ##   ##  ##   ##   ## ##   ##   ## ",
 														" ## # ##  ##  ###   ##  ##  ##   ##  ##   ##  ##   ##   ## ##   ##   ## ",
 														" ## # ##  ## # ##   ##  ##  ######   ##   ##  ######    ## ##   ####  # ",
@@ -19,7 +19,7 @@ namespace Feelwords
 														"  #####   ##   ##   ##  ##  ##   ##  ##   ##  ##       #######  ##  # # ",
 														"    #     ##   ##  ##   ##  ######    #####   ##       ##   ##  ####  # ",
 														"                                                                        " };
-		protected readonly static string[] NEWGAME = { " ##   ##                                                                             ",
+		private readonly static string[] NEWGAME = { " ##   ##                                                                             ",
 													   " ##   ##                                                                             ",
 													   " ##   ##   #####   #####     ####      #####      ##   ##   #####   ######    ####   ",
 													   " #######  ##   ##  ##  ##       ##    ##  ##      ##  ###       ##  ##   ##      ##  ",
@@ -27,7 +27,7 @@ namespace Feelwords
 													   " ##   ##  ##   ##  ##   ##  ##  ##    ##  ##      ###  ##  ##       ##       ##  ##  ",
 													   " ##   ##   #####   ######    ######  ##   ##      ##   ##   ######  ##        ###### ",
 													   "                                                                                     " };
-		protected readonly static string[] RESUME =  { " #######                                                                                  ",
+		private readonly static string[] RESUME =  { " #######                                                                                  ",
 													   " ##   ##                      ####                                                        ",
 													   " ##   ##  ######    #####        ##   #####     #####  ## # ##  ##   ##  ######   ##      ",
 													   " ##   ##  ##   ##  ##   ##    #####  ##   ##   ##  ##   # # #   ##  ###    ##     ##      ",
@@ -35,7 +35,7 @@ namespace Feelwords
 													   " ##   ##  ##       ##   ##  ##   ##  ##   ##   ##  ##   # # #   ###  ##    ##     ##   ## ",
 													   " ##   ##  ##        #####    #####    #####   ##   ##  ## # ##  ##   ##    ##     ######  ",
 													   "                                                                                          " };
-		protected readonly static string[] RATING =  { " ######                                                        ",
+		private readonly static string[] RATING =  { " ######                                                        ",
 													   " ##   ##              ##                                       ",
 													   " ##   ##   #####   ##   ##  ######   ##   ##  ##   ##   #####  ",
 													   " ######   ##   ##  ##  ###    ##     ##  ###  ##   ##       ## ",
@@ -43,7 +43,7 @@ namespace Feelwords
 													   " ##       ##       ###  ##    ##     ###  ##  ##   ##  ##      ",
 													   " ##        #####   ##   ##    ##     ##   ##  ##   ##   ###### ",
 													   "                                                               " };
-		protected readonly static string[] SETTINGS =  { " ##   ##                                                                         ",
+		private readonly static string[] SETTINGS =  { " ##   ##                                                                         ",
 													 	 " ##   ##                                                  ##                     ",
 														 " ##   ##   ####     #####   ######   ######    #####   ##   ##  ##   ##  ##   ## ",
 														 " #######      ##   ##         ##     ##   ##  ##   ##  ##  ###  ##  ##   ##  ### ",
@@ -51,7 +51,7 @@ namespace Feelwords
 														 " ##   ##  ##  ##   ##         ##     ##       ##   ##  ###  ##  ##  ##   ###  ## ",
 														 " ##   ##   ######   #####     ##     ##        #####   ##   ##  ##   ##  ##   ## ",
 														 "																				   " };
-		protected readonly static string[] EXIT = { " ######                                      ",
+		private readonly static string[] EXIT = { " ######                                      ",
 													" ##   ##                               ####  ",
 													" ##   ##  ##   ##  ##   ##   #####        ## ",
 													" ######   ##   ##   ## ##   ##   ##    ##### ",
@@ -59,7 +59,7 @@ namespace Feelwords
 													" ##   ##  ##  # #   ## ##   ##   ##  ##   ## ",
 													" ######   ####  #  ##   ##   #####    #####  ",
 													"                                             " };
-		protected readonly static string[] DUMMY = { " ######                                                                                                                                        ",
+		private readonly static string[] DUMMY = { " ######                                                                                                                                        ",
 													 "   ##                                      ####                                ####                    ##              ####                    ",
 													 "   ##     ##   ##  ######        #####        ##  ##   ##   ####    ## # ##       ##  ##   ##       ####    ##   ##       ##   #####   ######  ",
 													 "   ##     ##   ##    ##         ##   ##    #####  ##   ##      ##    # # #     #####  ##   ##      ##       ##   ##    #####  ##   ##    ##    ",
@@ -68,7 +68,7 @@ namespace Feelwords
 													 "   ##          ##    ##          #####    #####   ##   ##   ######  ## # ##   #####   ####  #       #####        ##   #####    #####     ##    ",
 													 "           #####                                                                                             #####                             ",
 													 "                                                                                                                                               " };
-		protected readonly static string[] NAMEREQUEST = { " ##   ##                        ######                                                                       #####  ",
+		public readonly string[] NAMEREQUEST = { " ##   ##                        ######                                                                       #####  ",
 														   " ##  ##                         ##   ##                                                                     #     # ",
 														   " ## ##     ####    ##   ##      ##   ##   ####     #####        #####    #####   #####    ##   ##  ######         # ",
 														   " #####        ##   ##  ##       ######       ##   ##           ##   ##  ##   ##  ##  ##   ##   ##    ##        ###  ",
@@ -76,6 +76,6 @@ namespace Feelwords
 														   " ##   ##  ##  ##   ##  ##       ##   ##  ##  ##   ##           ##   ##  ##   ##  ##   ##   ######    ##             ",
 														   " ##   ##   ######  ##   ##      ######    ######   #####        #####    #####   ######        ##    ##        #    ",
 														   "                                                                                           #####                    " };
-		protected readonly string[][] menuOption = { NAMEGAME, NEWGAME, RESUME, RATING, SETTINGS, EXIT, DUMMY };
+		public readonly string[][] menuOption = { NAMEGAME, NEWGAME, RESUME, RATING, SETTINGS, EXIT, DUMMY };
 	}
 }

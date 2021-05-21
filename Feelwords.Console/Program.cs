@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Feelwords
+﻿namespace Feelwords.Console
 {
+	using System;
+
 	class Program
 	{
 		static void Main(string[] args)
@@ -21,7 +21,7 @@ namespace Feelwords
 				else if (choice == 5)
 					Environment.Exit(0);
 			}
-			
+
 		}
 	}
 }
