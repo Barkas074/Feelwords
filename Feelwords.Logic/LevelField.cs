@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Feelwords
+﻿namespace Feelwords.Logic
 {
-	class LevelField
+	using System;
+	using System.Collections.Generic;
+	using System.Text;
+
+	public class LevelField
 	{
 		public char[,] field;
 		public Dictionary<string, List<string>> dictionaryWord;

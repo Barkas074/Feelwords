@@ -1,15 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.InteropServices;
-using System.Text;
-
-namespace Feelwords
+﻿namespace Feelwords.Console
 {
-	class FeelwordsConsoleUI : TheNamesOfTheItems
+	using System;
+	using System.Collections.Generic;
+	using System.IO;
+	using System.Runtime.InteropServices;
+	using System.Text;
+	using Feelwords.Logic;
+
+	class FeelwordsConsoleUI
 	{
 		int choice = 1;
 		bool isChoice = true;
+		TheNamesOfTheItems theNamesOfTheItems = new TheNamesOfTheItems();
 		public int Main()
 		{
 			Console.CursorVisible = false;
@@ -95,7 +97,7 @@ namespace Feelwords
 				--choice;
 				isChoice = true;
 			}
-			else if (key == ConsoleKey.DownArrow && choice != menuOption.Length - 2)
+			else if (key == ConsoleKey.DownArrow && choice != theNamesOfTheItems.menuOption.Length - 2)
 			{
 				++choice;
 				isChoice = true;
@@ -106,7 +108,7 @@ namespace Feelwords
 			}
 			if (key == ConsoleKey.Tab)
 			{
-				if (choice != menuOption.Length - 2)
+				if (choice != theNamesOfTheItems.menuOption.Length - 2)
 					++choice;
 				else
 					choice = 1;
@@ -120,17 +122,17 @@ namespace Feelwords
 			Console.Clear();
 			int centerX;
 			int centerY = 1;
-			for (int i = 0; i < menuOption.Length - 1; i++)
+			for (int i = 0; i < theNamesOfTheItems.menuOption.Length - 1; i++)
 			{
-				for (int j = 0; j < menuOption[i].Length; j++)
+				for (int j = 0; j < theNamesOfTheItems.menuOption[i].Length; j++)
 				{
 					if (i == choice)
 						Console.ForegroundColor = ConsoleColor.Yellow;
 					else
 						Console.ForegroundColor = ConsoleColor.Cyan;
-					centerX = (Console.WindowWidth / 2) - (menuOption[i][j].Length / 2);
+					centerX = Console.WindowWidth / 2 - theNamesOfTheItems.menuOption[i][j].Length / 2;
 					Console.SetCursorPosition(centerX, centerY);
-					Console.WriteLine(menuOption[i][j]);
+					Console.WriteLine(theNamesOfTheItems.menuOption[i][j]);
 					centerY = Console.CursorTop;
 				}
 			}
@@ -142,11 +144,11 @@ namespace Feelwords
 			Console.Clear();
 			int centerX;
 			int centerY = 1;
-			for (int i = 0; i < NAMEREQUEST.Length; i++)
+			for (int i = 0; i < theNamesOfTheItems.NAMEREQUEST.Length; i++)
 			{
-				centerX = (Console.WindowWidth / 2) - (NAMEREQUEST[i].Length / 2);
+				centerX = Console.WindowWidth / 2 - theNamesOfTheItems.NAMEREQUEST[i].Length / 2;
 				Console.SetCursorPosition(centerX, centerY);
-				Console.WriteLine(NAMEREQUEST[i]);
+				Console.WriteLine(theNamesOfTheItems.NAMEREQUEST[i]);
 				centerY = Console.CursorTop;
 			}
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
@@ -155,7 +157,7 @@ namespace Feelwords
 			WorkWithFiles workWithFiles = new WorkWithFiles(name, gamePoints);
 		}
 
-		
+
 
 		public void DrawingResume()
 		{
@@ -453,7 +455,7 @@ namespace Feelwords
 				cursorPositionX += 2;
 				cellPositionX += 1;
 			}
-			else if(key == ConsoleKey.LeftArrow && cellPositionY != 0)
+			else if (key == ConsoleKey.LeftArrow && cellPositionY != 0)
 			{
 				cursorPositionY -= 2;
 				cellPositionY -= 1;
@@ -484,11 +486,11 @@ namespace Feelwords
 			int dummy = 6;
 			for (int i = 0; i < 2; i++)
 			{
-				for (int j = 0; j < menuOption[dummy].Length; j++)
+				for (int j = 0; j < theNamesOfTheItems.menuOption[dummy].Length; j++)
 				{
-					centerX = (Console.WindowWidth / 2) - (menuOption[dummy][j].Length / 2);
+					centerX = Console.WindowWidth / 2 - theNamesOfTheItems.menuOption[dummy][j].Length / 2;
 					Console.SetCursorPosition(centerX, centerY);
-					Console.WriteLine(menuOption[dummy][j]);
+					Console.WriteLine(theNamesOfTheItems.menuOption[dummy][j]);
 					centerY = Console.CursorTop;
 				}
 				dummy = choice;
