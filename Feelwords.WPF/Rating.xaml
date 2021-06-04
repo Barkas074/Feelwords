@@ -1,0 +1,15 @@
+﻿<Window x:Class="Feelwords.WPF.Rating"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Feelwords.WPF"
+        mc:Ignorable="d"
+		WindowStartupLocation="CenterScreen"
+        Title="Филворды" Height="560" Width="560" ResizeMode="NoResize">
+    <Grid>
+		<Label x:Name="title" Content="Рейтинг" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Arial" HorizontalAlignment="Center"/>
+		<ListBox x:Name="lbox_Rating" Margin="50,110,50,150"/>
+		<Button x:Name="btn_Back" Content="Назад" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Margin="0,436,0,0" Width="350" Click="btn_Back_Click"/>
+	</Grid>
+</Window>

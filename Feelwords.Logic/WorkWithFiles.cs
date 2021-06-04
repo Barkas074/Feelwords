@@ -19,6 +19,25 @@
 			return File.ReadAllLines(nameFile);
 		}
 
+		public List<string> ReadWordsFromFile(List<int> countWord) 
+		{
+			List<string> listWords = new List<string>();
+			Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
+			string[] words = File.ReadAllLines("words.txt", Encoding.GetEncoding(1251));
+			for (int i = 0; i < countWord.Count; i++)
+			{
+				foreach (var item in words)
+				{
+					if (item.Length == countWord[i])
+					{
+						listWords.Add(item);
+						break;
+					}
+				}
+			}
+			return listWords;
+		}
+
 		public WorkWithFiles(string name, long gamePoints)
 		{
 			string configFile = "config.txt";
