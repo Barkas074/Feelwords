@@ -67,7 +67,7 @@
 			for (int i = 1; i <= 10; i++)
 			{
 				DrawingField(width, height);
-				LevelField level = CreatingDictionaryForTheGame(width, height);
+				GameInfo level = CreatingDictionaryForTheGame(width, height);
 				FillField(width, height, level, dictionary);
 				gamePoints += StartTheGame(width, height, level, dictionary, out bool keyEsc);
 				if (keyEsc)
@@ -78,7 +78,7 @@
 			return gamePoints;
 		}
 
-		private LevelField CreatingDictionaryForTheGame(int width, int height)
+		private GameInfo CreatingDictionaryForTheGame(int width, int height)
 		{
 			//Временная заглушка 
 			char[,] field = new char[,] { { 'б', 'е', 'з', 'н', 'е' }, { 'а', 'п', 'о', 'т', 'н' }, { 'с', 'ь', 'а', 'б', 'о' }, { 'н', 'т', 'н', 'и', 'т' }, { 'о', 'с', 'а', 'и', 'с' } };
@@ -86,7 +86,7 @@
 			dictionaryWord.Add("безопасность", new List<string>() { "0 0", "0 1", "0 2", "1 2", "1 1", "1 0", "2 0", "3 0", "4 0", "4 1", "3 1", "2 1" });
 			dictionaryWord.Add("истина", new List<string>() { "4 3", "4 4", "3 4", "3 3", "3 2", "4 2" });
 			dictionaryWord.Add("абонент", new List<string>() { "2 2", "2 3", "2 4", "1 4", "0 4", "0 3", "1 3" });
-			LevelField level = new LevelField(field, dictionaryWord);
+			GameInfo level = new LevelField(field, dictionaryWord, 0);
 			return level;
 		}
 
@@ -154,7 +154,8 @@
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
 			string name = Console.ReadLine();
 			long gamePoints = PrepareField(5, 5); //Временная заглушка на размер поля
-			WorkWithFiles workWithFiles = new WorkWithFiles(name, gamePoints);
+			WorkWithFiles workWithFiles = new();
+			workWithFiles.WorkWithFilesOld(name, gamePoints);
 		}
 
 
@@ -239,7 +240,7 @@
 			}
 		}
 
-		private void FillField(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary)
+		private void FillField(int fieldWidth, int fieldHeight, GameInfo level, string[] dictionary)
 		{
 			int cursorPositionY = 1;
 			for (int i = 0; i < fieldHeight; i++)
@@ -248,14 +249,14 @@
 				for (int j = 0; j < fieldWidth; j++)
 				{
 					Console.SetCursorPosition(cursorPositionX, cursorPositionY);
-					Console.Write(level.field[i, j]);
+					Console.Write(level.Field[i, j]);
 					cursorPositionX += 2;
 				}
 				cursorPositionY += 2;
 			}
 		}
 
-		private long StartTheGame(int fieldWidth, int fieldHeight, LevelField level, string[] dictionary, out bool keyEsc)
+		private long StartTheGame(int fieldWidth, int fieldHeight, GameInfo level, string[] dictionary, out bool keyEsc)
 		{
 			long gamePoints = 0;
 			Console.SetCursorPosition(15, 0);
@@ -297,7 +298,7 @@
 					Console.ForegroundColor = ConsoleColor.Gray;
 				}
 				Console.SetCursorPosition(cursorPositionY, cursorPositionX);
-				Console.Write(level.field[cellPositionX, cellPositionY]);
+				Console.Write(level.Field[cellPositionX, cellPositionY]);
 				//if (isChoice)
 				//	DrawingMenu(choice);
 				switch (Console.ReadKey(true).Key)
@@ -318,7 +319,7 @@
 							if (WordVerification(level, cellPosition, dictionary, ref guessTheWord, ref gamePoints))
 							{
 								SelectionOfTheCells(ConsoleColor.Green, ConsoleColor.Gray, level, ref cursorPosition, ref cellPosition);
-								if (guessTheWord.Count == level.dictionaryWord.Count)
+								if (guessTheWord.Count == level.DictionaryWord.Count)
 								{
 									Console.BackgroundColor = ConsoleColor.Black;
 									Console.ForegroundColor = ConsoleColor.Cyan;
@@ -381,7 +382,7 @@
 			}
 		}
 
-		private void SelectionOfTheCells(ConsoleColor backgroundColor, ConsoleColor foregroundColor, LevelField level, ref Stack<string> cursorPosition, ref Stack<string> cellPosition)
+		private void SelectionOfTheCells(ConsoleColor backgroundColor, ConsoleColor foregroundColor, GameInfo level, ref Stack<string> cursorPosition, ref Stack<string> cellPosition)
 		{
 			Console.BackgroundColor = backgroundColor;
 			Console.ForegroundColor = foregroundColor;
@@ -392,15 +393,15 @@
 				string temp2 = cellPosition.Pop();
 				string[] cell = temp2.Split(' ', StringSplitOptions.RemoveEmptyEntries);
 				Console.SetCursorPosition(int.Parse(cursor[0]), int.Parse(cursor[1]));
-				Console.Write(level.field[int.Parse(cell[0]), int.Parse(cell[1])]);
+				Console.Write(level.Field[int.Parse(cell[0]), int.Parse(cell[1])]);
 			}
 		}
 
-		private bool WordVerification(LevelField level, Stack<string> cellPosition, string[] dictionary, ref Dictionary<string, List<string>> guessTheWord, ref long gamePoints)
+		private bool WordVerification(GameInfo level, Stack<string> cellPosition, string[] dictionary, ref Dictionary<string, List<string>> guessTheWord, ref long gamePoints)
 		{
 			bool checkWord = false;
 			string[] cell = cellPosition.ToArray();
-			foreach (var word in level.dictionaryWord)
+			foreach (var word in level.DictionaryWord)
 			{
 				if (word.Value.Count == cell.Length)
 				{
@@ -436,14 +437,14 @@
 			return checkWord;
 		}
 
-		private void SelectedKeyInTheGame(ConsoleKey key, int fieldWidth, int fieldHeight, ref int cursorPositionX, ref int cursorPositionY, ref int cellPositionX, ref int cellPositionY, LevelField level, ref bool keyEnter, ref Stack<string> cursorPosition, ref Stack<string> cellPosition, bool checkLetter)
+		private void SelectedKeyInTheGame(ConsoleKey key, int fieldWidth, int fieldHeight, ref int cursorPositionX, ref int cursorPositionY, ref int cellPositionX, ref int cellPositionY, GameInfo level, ref bool keyEnter, ref Stack<string> cursorPosition, ref Stack<string> cellPosition, bool checkLetter)
 		{
 			if (!keyEnter && !checkLetter)
 			{
 				Console.BackgroundColor = ConsoleColor.Black;
 				Console.ForegroundColor = ConsoleColor.Cyan;
 				Console.SetCursorPosition(cursorPositionY, cursorPositionX);
-				Console.Write(level.field[cellPositionX, cellPositionY]);
+				Console.Write(level.Field[cellPositionX, cellPositionY]);
 			}
 			if (key == ConsoleKey.UpArrow && cellPositionX != 0)
 			{

@@ -1,0 +1,29 @@
+﻿<Window x:Class="Feelwords.WPF.Rating"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Feelwords.WPF" xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+		mc:Ignorable="d"
+		WindowStartupLocation="CenterScreen"
+        Title="Филворды" Height="560" Width="560" ResizeMode="NoResize">
+	<Window.Resources>
+		<local:RatingInfoDataGrid x:Key="ratingInfo"/>
+		<CollectionViewSource x:Key="cvsRating" Source="{StaticResource ratingInfo}">
+			<CollectionViewSource.SortDescriptions>
+				<scm:SortDescription PropertyName="Score" Direction="Descending"/>
+			</CollectionViewSource.SortDescriptions>
+		</CollectionViewSource>
+	</Window.Resources>
+	<Grid>
+		<Label x:Name="title" Content="Рейтинг" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Arial" HorizontalAlignment="Center"/>
+		<DataGrid x:Name="dataGrid_Rating" ItemsSource="{Binding Source={StaticResource cvsRating}}" Margin="50,110,50,150" CanUserReorderColumns="False" CanUserResizeColumns="False" Background="White" AutoGenerateColumns="False" FontFamily="Arial" FontSize="16" CanUserAddRows="False" CanUserDeleteRows="False" CanUserResizeRows="False" HeadersVisibility="Column">
+			<DataGrid.Columns>
+				<DataGridTextColumn Header="Имя" Binding="{Binding Path=NamePlayer}" Width="*" CanUserSort="False" CanUserResize="False"/>
+				<DataGridTextColumn Header="Кол-во очков" Binding="{Binding Path=Score}" MinWidth="120" CanUserSort="True" CanUserResize="False" SortDirection="Descending"/>
+				<DataGridTextColumn Header="Уровень" Binding="{Binding Path=Level}" MinWidth="100" CanUserSort="False"  CanUserResize="False"/>
+			</DataGrid.Columns>
+		</DataGrid>
+		<Button x:Name="btn_Back" Content="Назад" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Margin="0,436,0,0" Width="350" Click="btn_Back_Click"/>
+	</Grid>
+</Window>

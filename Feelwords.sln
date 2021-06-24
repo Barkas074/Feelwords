@@ -5,7 +5,14 @@ VisualStudioVersion = 16.0.30621.155
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feelwords.Console", "Feelwords.Console\Feelwords.Console.csproj", "{DE6AB47C-D84B-4753-B173-5CC171F2CFFE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feelwords.Logic", "Feelwords.Logic\Feelwords.Logic.csproj", "{BF0E67EC-0ACF-408C-BB4D-5118973A7927}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Feelwords.Logic", "Feelwords.Logic\Feelwords.Logic.csproj", "{BF0E67EC-0ACF-408C-BB4D-5118973A7927}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Feelwords.WPF", "Feelwords.WPF\Feelwords.WPF.csproj", "{D03F32DF-44F9-40BC-91F6-3A42AC10CE34}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6F9A6E97-B82D-400B-A7B4-1EB9977410D0}"
+	ProjectSection(SolutionItems) = preProject
+		words.txt = words.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +28,10 @@ Global
 		{BF0E67EC-0ACF-408C-BB4D-5118973A7927}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF0E67EC-0ACF-408C-BB4D-5118973A7927}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF0E67EC-0ACF-408C-BB4D-5118973A7927}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D03F32DF-44F9-40BC-91F6-3A42AC10CE34}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D03F32DF-44F9-40BC-91F6-3A42AC10CE34}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D03F32DF-44F9-40BC-91F6-3A42AC10CE34}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D03F32DF-44F9-40BC-91F6-3A42AC10CE34}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

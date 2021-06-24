@@ -1,0 +1,22 @@
+﻿<Window x:Class="Feelwords.WPF.UserDefinition"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Feelwords.WPF"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Title="Филворды" Height="560" Width="560" ResizeMode="NoResize">
+	<Grid>
+		<Label x:Name="title" Content="Как Вас зовут?" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Arial" HorizontalAlignment="Center"/>
+		<TextBox x:Name="tbox_PlayerName" VerticalAlignment="Top" Margin="100,180,100,0" FontFamily="Arial" FontSize="36" TextChanged="tbox_PlayerName_TextChanged"/>
+		<TextBlock x:Name="customField" Hyperlink.Click="customSettings_Click" Margin="133,268,0,0" VerticalAlignment="Top" FontSize="36" FontFamily="Arial" HorizontalAlignment="Left" Visibility="Visible">
+			<Hyperlink >Польз. настройки</Hyperlink>
+		</TextBlock>
+		<TextBox x:Name="tbox_X" VerticalAlignment="Top" Margin="100,270,100,0" FontFamily="Arial" FontSize="36" TextChanged="tbox_customField_TextChanged" Width="160" HorizontalAlignment="Left" Visibility="Hidden" TextAlignment="Center"/>
+		<Label x:Name="tbox_colon" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="36" Margin="0,264,0,0" Visibility="Hidden">:</Label>
+		<TextBox x:Name="tbox_Y" VerticalAlignment="Top" Margin="100,270,100,0" FontFamily="Arial" FontSize="36" TextChanged="tbox_customField_TextChanged" Width="160" HorizontalAlignment="Right" Visibility="Hidden" TextAlignment="Center"/>
+		<Button x:Name="btn_NewGame" Content="Начать игру" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Margin="0,357,0,0" Width="350" Click="btn_NewGame_Click" IsEnabled="False"/>
+		<Button x:Name="btn_Back" Content="Назад" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Margin="0,436,0,0" Width="350" Click="btn_Back_Click"/>
+	</Grid>
+</Window>
