@@ -66,7 +66,7 @@ namespace Feelwords.WPF
 		}
 		private void btn_Hint_Click(object sender, RoutedEventArgs e)
 		{
-			notFoundWord = gameInfo.ListOfWords;
+			notFoundWord.AddRange(gameInfo.ListOfWords);
 			foreach (Word foundWord in gameInfo.ListOfFoundWords)
 			{
 				notFoundWord.Remove(foundWord);
