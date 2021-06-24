@@ -154,7 +154,8 @@
 			Console.SetCursorPosition(Console.WindowWidth / 2 - 5, Console.CursorTop);
 			string name = Console.ReadLine();
 			long gamePoints = PrepareField(5, 5); //Временная заглушка на размер поля
-			WorkWithFiles workWithFiles = new WorkWithFiles(name, gamePoints);
+			WorkWithFiles workWithFiles = new();
+			workWithFiles.WorkWithFilesOld(name, gamePoints);
 		}
 
 

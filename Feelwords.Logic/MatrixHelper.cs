@@ -42,7 +42,7 @@ namespace Feelwords.Logic
         {
             _minLength = minLength;
             InitStart();
-            printMatrix();
+            //printMatrix();
             for (int i = 0; i < 10; i++)
             {
                 DeadEnds.Clear();
@@ -54,9 +54,9 @@ namespace Feelwords.Logic
             //    TryForExplosion();
             //    Compress();
             //}
-            Debug.WriteLine("___________");
-            printMatrix();
-            Debug.WriteLine("___________");
+            //Debug.WriteLine("___________");
+            //printMatrix();
+            //Debug.WriteLine("___________");
             var a =_wordsPlaceHolders;
             return _matrix;
         }

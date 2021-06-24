@@ -10,6 +10,7 @@ namespace Feelwords.Logic
 		public List<int> Y { get; set; } = new List<int>();
 		public string Name { get; set; }
 		public char[] CharName { get; set; }
+		public bool HintUsed { get; set; } = false;
 
 		public string Letter(int x, int y)
 		{
@@ -46,6 +47,11 @@ namespace Feelwords.Logic
 			}
 			return true;
 		}
+		public int Score()
+		{
+			return HintUsed ? 50 : 100;
+		}
+
 	}
 }
  

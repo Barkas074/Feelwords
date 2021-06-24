@@ -10,9 +10,9 @@
 	<Grid>
 		<Label x:Name="title" Content="Филворды" Margin="0,15,0,0" VerticalAlignment="Top" FontSize="72" FontFamily="Arial" HorizontalAlignment="Center"/>
 		<Button x:Name="btn_UserDefinition" Content="Новая игра" HorizontalAlignment="Center" Margin="0,135,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350" Click="btn_UserDefinition_Click"/>
-		<Button x:Name="btn_Continue" Content="Продолжить" HorizontalAlignment="Center" Margin="0,209,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350"/>
+		<Button x:Name="btn_Continue" Content="Продолжить" HorizontalAlignment="Center" Margin="0,209,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350" Click="btn_Continue_Click"/>
 		<Button x:Name="btn_Rating" Content="Рейтинг" HorizontalAlignment="Center" Margin="0,284,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350" Click="btn_Rating_Click"/>
-		<Button x:Name="btn_Settings" Content="Настройки" HorizontalAlignment="Center" Margin="0,359,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350"/>
+		<Button x:Name="btn_Settings" Content="Настройки" HorizontalAlignment="Center" Margin="0,359,0,0" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Width="350" Click="btn_Settings_Click"/>
 		<Button x:Name="btn_Exit" Content="Выход" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="48" Margin="0,436,0,0" Width="350" Click="btn_Exit_Click"/>
 	</Grid>
 </Window>

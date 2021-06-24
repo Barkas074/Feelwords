@@ -6,15 +6,13 @@
         xmlns:local="clr-namespace:Feelwords.WPF"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Филворды" Height="670" Width="560" ResizeMode="NoResize" Loaded="Window_OnLoaded">
+        Title="Филворды" Height="670" Width="560" ResizeMode="NoResize" Loaded="Window_OnLoaded" Closing="Window_Closing">
 	<Grid>
 		<Button x:Name="btn_Back" Content="На главную" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Margin="10,10,0,0" Width="150" Click="btn_Back_Click"/>
 		<Label x:Name="label" Content="Количество очков: " HorizontalAlignment="Left" VerticalAlignment="Top" Margin="170,10,0,0"/>
-		<Label x:Name="lbl_Score" Content="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="289,10,0,0" Width="100"/>
+		<Label x:Name="lbl_Score" Content="0"  HorizontalAlignment="Left" VerticalAlignment="Top" Margin="289,10,0,0" Width="100"/>
 		<Button x:Name="btn_Hint" Content="Подсказка" HorizontalAlignment="Right" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Width="150" Click="btn_Hint_Click" Margin="0,10,10,0"/>
 		<Label x:Name="lbl_Words" Content="" Margin="0,47,0,0" VerticalAlignment="Top"/>
 		<Canvas x:Name="canvas" Width="560" Height="560" VerticalAlignment="Bottom" Margin="0,0,0,-10" MouseLeftButtonDown="canvas_MouseLeftButtonDown" MouseMove="canvas_MouseMove" MouseRightButtonDown="canvas_MouseRightButtonDown"/>
-
-
 	</Grid>
 </Window>
